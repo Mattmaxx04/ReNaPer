@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/person")
@@ -23,13 +24,14 @@ public class PersonController {
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
-   @GetMapping("/find/{lastname}")
-    public ResponseEntity<Person> findPersonByLastnameStartsWith(@PathVariable("lastname") String lastname) {
-        Person person = personService.findPersonByLastnameStartsWith(lastname);
+
+    @GetMapping("/findlastname/{lastname}")
+    public ResponseEntity<List<Person>> findPersonByLastnameStartsWith(@PathVariable("lastname") String lastname){
+        List<Person> person = personService.findPersonByLastnameStartsWith(lastname);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
-    @GetMapping("/NameAndLastname/{name} {lastname}")
+    @GetMapping("/findfullname/{name} {lastname}")
     public ResponseEntity<Person> findByNameAndLastname(
               @PathVariable("name") String name, @PathVariable("lastname") String lastname  ) {
         Person person = personService.findByNameAndLastname(name, lastname);
@@ -42,7 +44,7 @@ public class PersonController {
         return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/")
+    @PutMapping("/updatesex/")
     public ResponseEntity<Person> updatePerson (@RequestBody Person person) {
         Person updatePerson = personService.updatePerson(person);
         return new ResponseEntity<>(updatePerson, HttpStatus.OK);
